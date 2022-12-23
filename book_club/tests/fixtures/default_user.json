@@ -1,0 +1,17 @@
+[
+  {
+	"model" : "book_club.user",
+	"pk": 1,
+	"fields": {
+	  "first_name": "John",
+	  "last_name": "Doe",
+	  "email": "johndoe@example.com",
+	  "bio": "Hey, I'm John Doe.",
+	  "personal_statement": "Boooooooooooks",
+	  "age" : 23,
+    "location" : "Berlin",
+	  "password": "pbkdf2_sha256$260000$A66QtN387EbqkuehE9c8TR$PBt74N9Eg68N1+BuXZ+ar/13XyWQDiejtdHMqgzSh6Q=",
+	  "is_active": true
+	}
+  }
+]

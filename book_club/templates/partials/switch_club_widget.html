@@ -1,0 +1,35 @@
+{% if user_clubs %}
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle" href="#" id="switch-club-dropdown" role="button"
+		   data-bs-toggle="dropdown" aria-expanded="false">
+			<span>{{ current_club.name }}</span>
+		</a>
+		<div id="switch-clubs" class="dropdown-menu dropdown-menu-end p-1" aria-labelledby="switch-club-dropdown">
+			{% for club in user_clubs %}
+				{% if club == current_club %}
+					<a class="dropdown-item disabled"
+					   href="{% url 'switch_club' club_name=club%}">{{ club }}</a>
+				{% else %}
+					<a class="dropdown-item" href="{% url 'switch_club' club_name=club %}">{{ club }}</a>
+				{% endif %}
+			{% endfor %}
+		</div>
+	</li>
+	<script>
+		 function filterFunction() {
+			 let input, filter, a, i, div;
+			 input = document.getElementById("club-filter");
+			 filter = input.value.toUpperCase();
+			 div = document.getElementById("switch-clubs");
+			 a = div.getElementsByTagName("a");
+			 for (i = 0; i < a.length; i++) {
+				 let txtValue = a[i].textContent || a[i].innerText;
+				 if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					 a[i].style.display = "";
+				 } else {
+					 a[i].style.display = "none";
+				 }
+			 }
+		 }
+	</script>
+{% endif %}

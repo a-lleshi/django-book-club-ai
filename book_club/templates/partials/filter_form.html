@@ -1,0 +1,14 @@
+{% load widget_tweaks %}
+
+<form action="" method="get" class="inline-form">
+	{% load widget_tweaks %}
+	{% for field in form %}
+		<div>
+			{{ field.label_tag }}
+			{% render_field field class="form-control" %}
+		</div>
+	{% endfor %}
+
+	<button class="btn btn-outline-primary" type="submit"><i class="fas fa-search me-2"></i>Search</button>
+	<button class="btn btn-outline-secondary" type="button"><a href="{% url current_view %}" style="text-decoration: none; color: inherit">Reset Filters</a></button>
+</form>

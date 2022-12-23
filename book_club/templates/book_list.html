@@ -1,0 +1,51 @@
+{% extends 'base_content.html' %}
+{% block title %}Books{% endblock %}
+{% load bootstrap_pagination %}
+{% block content %}
+
+    <div class="container mt-4">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h1>&nbsp;Available books</h1>
+
+            {% include 'partials/filter_form.html' with form=filter.form current_view='book_list' %}
+
+            {% if is_paginated %}
+              {% bootstrap_paginate page_obj range=8 previous_label="Previous" next_label="Next" show_first_last="true" %}
+            {% endif%}
+
+      </div>
+		</div>
+
+
+    <div class="card-deck">
+
+    {% for book in page_obj %}
+
+      <div class="card mb-3" style="max-width: auto;">
+        <div class="row g-0 text-center my-auto">
+          <div class="card-header">
+            <h2 class="card-title">{{ book.BookTitle }}</h2>
+          </div>
+          <div class="col-md-2">
+            <img src="{{ book.ImageURLL }}" class="img-fluid rounded-start" alt="{{ book.BookTitle }}" style="width:100%; max-height: auto;">
+          </div>
+          <div class="col-md-8 text-center my-auto">
+            <div class="card-body ">
+              <p class="card-text">
+                <h4>{{ book.BookAuthor }}</h4>
+                <h5>Year Of Publication: {{ book.YearOfPublication }}</h5>
+                <p>Publisher: {{ book.Publisher }}</p>
+                  <a class="btn btn-info mt-2" href="{% url 'more_details' book_isbn=book.ISBN %}"> See rating and rate this book </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-center my-auto">
+          <small class="text-muted">ISBN: {{ book.ISBN }}</small>
+      </div>
+      </div>
+
+    {% endfor %}
+
+{% endblock %}

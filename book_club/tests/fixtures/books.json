@@ -1,0 +1,32 @@
+[
+  {
+	"model" : "book_club.book",
+	"pk": 1,
+	"fields": {
+    "ISBN" : "0767409752",
+    "BookTitle" : "Amazing",
+    "BookAuthor" : "Christopher Biffle",
+    "YearOfPublication" : "2000",
+    "Publisher" : "Biba",
+    "ImageURLS" : "url",
+    "ImageURLM" : "url",
+    "ImageURLL" : "url"
+
+	}
+  },
+  {
+	"model" : "book_club.book",
+	"pk": 2,
+	"fields": {
+    "ISBN" : "0192126040",
+    "BookTitle" : "Book 2",
+    "BookAuthor" : "Christopher Biffle",
+    "YearOfPublication" : "1996",
+    "Publisher" : "Boba",
+    "ImageURLS" : "url",
+    "ImageURLM" : "url",
+    "ImageURLL" : "url"
+
+	 }
+  }
+]

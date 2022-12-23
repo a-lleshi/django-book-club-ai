@@ -1,0 +1,70 @@
+{% extends 'base_content.html' %}
+{% block title %}Rate Book{% endblock %}
+{% block content %}
+
+      <div class="card mb-3" style="max-width: auto;">
+        <div class="row g-0 text-center my-auto">
+          <div class="card-header">
+            <h2 class="card-title">{{ book.BookTitle }}</h2>
+          </div>
+          <div class="col-md-2">
+            <img src="{{ book.ImageURLL }}" class="img-fluid rounded-start" alt="{{ book.BookTitle }}" style="width:100%; max-height: auto;">
+          </div>
+          <div class="col-md-8 text-center my-auto">
+            <div class="card-body ">
+              <p class="card-text">
+                <h4>{{ book.BookAuthor }}</h4>
+                <h5>Year Of Publication: {{ book.YearOfPublication }}</h5>
+                  <div class="stars-wrapper hide-unselected d-flex align-items-center justify-content-center my-3">
+                  <span class="heading pt-1 me-2">Average rating: {{ avg }} </span>
+
+                    {% for s in '0123456789'|make_list %}
+                    
+                      <div class="star-item {{ avg|getStarValue:forloop.counter }}">
+                        <div class="star">
+                          <span class="fa-solid fa-star-half"></span>
+                          <span class="fa-regular fa-star"></span>
+                          <span class="fa-solid fa-star"></span>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+
+                  <div class="rate-this-book">
+  
+                    <div class="title mb-2">Rate this book: </div>
+
+                    {% for usersBook in userRatedBooks %}                     
+                      {% if usersBook.ISBN == book.ISBN %}
+                        <p>You have rated this book as: <b>{{usersBook.bookRating}}</b></p>
+                      {% endif %}
+  
+                    {% endfor %}                        
+
+                    <div class="stars-wrapper d-flex align-items-center justify-content-center {% for usersBook in userRatedBooks %}{% if usersBook.ISBN == book.ISBN %}hidden {% endif %}{% endfor %}">
+
+                      {% for i in '0123456789'|make_list %}
+                      <a href="/book_list/more_details/{{ book.get_id }}/{{ forloop.counter }}" class="star-item unselected">
+                        <div class="star">
+                          <span class="fa-regular fa-star"></span>
+                          <span class="fa-solid fa-star"></span>
+                        </div>
+                      </a>
+                      {% endfor %}
+
+                    </div>
+
+                    
+
+                  </div>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-center my-auto">
+          <small class="text-muted">ISBN: {{ book.ISBN }}</small>
+      </div>
+      </div>
+
+
+{% endblock %}

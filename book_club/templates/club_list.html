@@ -1,0 +1,40 @@
+{% extends 'base_content.html' %}
+{% block title %}Clubs{% endblock %}
+{% load bootstrap_pagination %}
+{% block content %}
+
+<div class="container mt-4">
+<div class="row">
+  <div class="col-12 text-center">
+    <h1>&nbsp;Book Clubs</h1>
+    {% include 'partials/filter_form.html' with form=filter.form current_view='club_list' %}
+
+    {% if is_paginated %}
+      {% bootstrap_paginate page_obj range=8 previous_label="Previous" next_label="Next" show_first_last="true" %}
+    {% endif%}
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+            {% for club in club_list %}
+
+            <div class="card">
+                <div class="card-header" style="display: flex;justify-content: space-between; align-items: center;">
+                    <a href="{% url 'show_club' club.id %}" class="title" style ="text-decoration: none;"> <p class="m-0"> <strong>{{ club.name }}</strong> </p> </a>
+
+                </div>
+                <div class="card-body">
+                  <h8 class="card-title">
+                    <p>Theme: {{ club.theme }}</p>
+                    <p style>Location: {{ club.location}}</p>
+                  </h8>
+                </div>
+            </div>
+            <br/>
+            {% endfor %}
+
+  </div>
+</div>
+</div>
+{% endblock %}

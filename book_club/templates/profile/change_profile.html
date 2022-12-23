@@ -1,0 +1,24 @@
+{% extends 'base_content.html' %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h1>Edit profile</h1>
+      <p><a href='{% url 'change_password' %}' class="btn btn btn-danger">Change password</a></p>
+      <form action="{% url 'change_profile' %}" method="post">
+        {% csrf_token %}
+        {% include 'partials/bootstrap_form.html' with form=form %}
+        <input type="submit" value="Update" class="btn btn-primary">
+      </form>
+    </div>
+    <div class="col-sm text-center">
+      <h1>Avatar</h1>
+      <img src="{{ user.large_gravatar }}"  class="rounded-circle">
+      <div class="mt-8">
+        <h6>This website implements Gravatar for profile pictures</h6>
+        <a href='https://en.gravatar.com/emails/' class="btn btn btn-primary">Change Gravatar</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

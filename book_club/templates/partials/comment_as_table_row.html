@@ -1,0 +1,22 @@
+{% load humanize %}
+<tr style="margin-left:20px">
+  <td>
+    <img src="{{ comment.author.mini_gravatar }}" alt="Gravatar of author {{ comment.author.email }}" class="rounded-circle">
+  </td>
+  <td>
+    <p class="comment-author" style="margin-left:20px">
+      <span class="comment-author-full_name" style="font-weight: 300">
+        {{ comment.author.full_name }}
+      </span>
+      &nbsp;&nbsp;&nbsp;
+      <span class="comment-author-user-details" style="color: darkblue;">
+        {{ comment.author.email }}
+        &nbsp;&middot;&nbsp;
+        {{ comment.created_at|naturaltime }}
+      </span>
+    </p>
+    <p class="comment-text" style="margin-left:20px">
+      {{ comment.text }}
+    </p>
+  </td>
+</tr>

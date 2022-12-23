@@ -1,0 +1,11 @@
+[
+    {
+      "model" : "book_club.UserRating",
+      "pk": 1,
+      "fields": {
+        "userId": 1,
+        "ISBN": "0767409752",
+        "bookRating": 8
+      }
+    }
+  ]

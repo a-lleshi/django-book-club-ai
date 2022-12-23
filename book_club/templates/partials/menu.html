@@ -1,0 +1,97 @@
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="user-account-dropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                Clubs
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-account-dropdown">
+                <li>
+                    <a class="dropdown-item" href="{% url 'club_list' %}">List of all clubs</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{% url 'club.create' %}">Create a Club</a>
+                </li>
+            </ul>
+        </li>
+        {% if club_user.is_member or club_user.is_officer or club_user.is_owner %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'club_member_list' %}">Members</a>
+        </li>
+        {% endif%}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="user-account-dropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                Book lists
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-account-dropdown">
+                <li>
+                    <a class="dropdown-item" href="{% url 'book_list' %}">List of all books in the network</a>
+                </li>
+                {% if club_user.is_member or club_user.is_officer or club_user.is_owner %}
+                <li>
+                    <a class="dropdown-item" href="{% url 'club_readings' %}">Club Reading List</a>
+                </li>
+                {% endif%}
+            </ul>
+        </li>
+        {% if current_club %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="user-account-dropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                Events
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-account-dropdown">
+                <li>
+                    <a class="dropdown-item" href="{% url 'event_list' %}">All Events</a>
+                </li>
+                {% if club_user.is_officer or club_user.is_owner %}
+                <li>
+                    <a class="dropdown-item" href="{% url 'add_event' %}">Add Event</a>
+                </li>
+                {% endif %}
+            </ul>
+        </li>
+        {% endif %}
+        {% if club_user.is_officer or club_user.is_owner %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                Admin Panel
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" >
+              <li>
+                  <a class="dropdown-item" href="{% url 'applicant_list' %}">Applicants</a>
+              </li>
+              <li>
+                  <a class="dropdown-item" href="{% url 'book_list_club' current_club_id %}">Manually recommend books to rate</a>
+              </li>
+            </ul>
+        </li>
+
+        {% endif %}
+
+    </ul>
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        {% include 'partials/switch_club_widget.html' %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="user-account-dropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ user.micro_gravatar }}"  class="rounded-circle">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-account-dropdown">
+                <li>
+                  <a class="dropdown-item" href="{% url 'change_profile' %}">Profile</a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="{% url 'log_out' %}">Log out</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

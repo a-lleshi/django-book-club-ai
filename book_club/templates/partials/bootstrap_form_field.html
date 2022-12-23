@@ -1,0 +1,16 @@
+{% load widget_tweaks %}
+<div class="form-floating mt-2 mb-2">
+	{% if form.is_bound %}
+		{% if field.errors %}
+			{% render_field field|add_class:"form-control is-invalid" placeholder=field.label %}
+		{% else %}
+			{% render_field field|add_class:"form-control is-valid" placeholder=field.label %}
+		{% endif %}
+	{% else %}
+		{% render_field field|add_class:"form-control" placeholder=field.label %}
+	{% endif %}
+	{{ field.label_tag }}
+	<div class="invalid-feedback">
+		{{ field.errors }}
+	</div>
+</div>

@@ -1,0 +1,57 @@
+[
+  {
+    "model" : "book_club.club",
+  	"pk": 2,
+  	"fields": {
+  	  "name": "Fantasy Club",
+      "location" : "Paris",
+  	  "description": "This book clubs is filled with magical reads.",
+  	  "theme": "Fantasy"
+    }
+  },
+  {
+     "model":"book_club.user",
+     "pk":6,
+     "fields":{
+        "password":"pbkdf2_sha256$260000$hvptZoy4AjYwaJhU3EOEke$xfwtgzdjp60lbaJjMDFom5e0U5UmDgzRCqSolBgml+U=",
+        "last_login":null,
+        "is_superuser":false,
+        "is_staff":false,
+        "is_active":true,
+        "date_joined":"2022-02-10T22:06:14.512Z",
+        "first_name":"Boba",
+        "last_name":"Fett",
+        "email":"Boba.Fett@example.org",
+        "bio":"Minus architecto a sunt provident provident magni. Laborum voluptas impedit provident minus aliquid officiis. Consequuntur magnam earum. Sit neque ipsum veniam ducimus porro id non.\nEius saepe magnam corporis vero error. Dolore neque eius ex vel. Eius nam corrupti eligendi illo minus facilis. Fugiat officia debitis corrupti repudiandae voluptatum.\nCumque quas odio assumenda tempore eligendi. Consectetur repellat nesciunt officiis repudiandae.\nQuaerat quos id at eos ipsa.",
+        "personal_statement":"Quod minima magnam recusandae modi nesciunt numquam. Totam magni laboriosam officia animi reiciendis non esse.\nQuam culpa fuga nam asperiores dolore magni. Facere cumque optio accusantium.\nPorro rerum quidem consequatur.\nTempore velit molestiae assumenda. Quaerat repellat omnis voluptas laborum. Facilis laudantium libero totam tenetur doloribus.\nHarum nihil animi ex incidunt. Possimus non possimus nemo. Ratione occaecati earum reiciendis dolore maxime.",
+        "location":"Rando City",
+        "age":54,
+        "groups":[
+
+        ],
+        "user_permissions":[
+
+        ]
+     }
+  },
+  {
+     "model":"book_club.membership",
+     "pk":5,
+     "fields":{
+        "user":6,
+        "club":2,
+        "applicationStatement":"Qui doloremque sed voluptatibus tempore. Occaecati dicta ex adipisci aliquam culpa error. Totam delectus incidunt expedita. Nobis pariatur earum adipisci esse atque doloremque sit.",
+        "level":"OWN"
+     }
+  },
+  {
+     "model":"book_club.membership",
+     "pk": 6,
+     "fields":{
+        "user":6,
+        "club":1,
+        "applicationStatement":"Qui doloremque sed voluptatibus tempore. Occaecati dicta ex adipisci aliquam culpa error. Totam delectus incidunt expedita. Nobis pariatur earum adipisci esse atque doloremque sit.",
+        "level":"OFF"
+     }
+  }
+]

@@ -1,0 +1,38 @@
+{% extends 'base_content.html' %}
+{% block title %}Club Info{% endblock %}
+{% block content %}
+
+ <div class="container mt-4">
+ <div class="row">
+  <div class="col-12 text-center">
+
+    <h1><i class="fas fa-book nav-icon"></i>&nbsp;Club Info</h1>
+  </div>
+ </div>
+ <div class="row">
+  <div class="col-md-12 col-lg-12 mt-5">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title"><b> {{ current_club.name }} </b></h4>
+            <h6 class="card-title"><b>Theme: </b> {{ current_club.theme }} </h6>
+            <h6 class="card-text"><b>Location: </b> {{ current_club.location }}</h6>
+            <h6 class="card-text"><b>Description: </b>{{ current_club.description }}</h6>
+            {% if membership_level == '' %}
+              <p><a href="{% url 'join' current_club.id %}" class="btn btn-secondary"> Apply to join </a></p>
+            {% endif %}
+            {% if membership_level == 'OWN' or membership_level == 'OFF'%}
+
+              <p><a href="{% url 'edit_club' current_club.id %}" class="btn btn-secondary"> Edit</a></p>
+
+            {% endif %}
+
+            {% if membership_level == 'OWN' or membership_level == 'OFF' or membership_level == 'MEM' %}
+              <p><a href="{% url 'forum' current_club.id %}" class="btn btn-secondary"> Club forum</a></p>
+            {% endif %}
+
+          </div>
+        </div>
+      </div
+    </div>
+  </div>
+  {% endblock %}

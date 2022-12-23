@@ -1,0 +1,51 @@
+{% extends 'base_content.html' %}
+{% block title %}Sign up{% endblock %}
+{% block content %}
+	<div class="container mt-4">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h1><i class="fas fa-book nav-icon"></i>&nbsp;Book Clubs</h1>
+				<h4 class="text-muted">Sign up</h4>
+				<span class="text-muted">Already have an account? <a href="{% url 'log_in' %}">Log in</a></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<form action="{% url 'sign_up' %}" method="post">
+					{% csrf_token %}
+					<div class="row justify-content-center">
+						<div class="col-md-4">
+							{% include 'partials/bootstrap_form_field.html' with field=form.first_name %}
+						</div>
+						<div class="col-md-4">
+							{% include 'partials/bootstrap_form_field.html' with field=form.last_name %}
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-md-8">
+							{% include 'partials/bootstrap_form_field.html' with field=form.email %}
+							{% include 'partials/bootstrap_form_field.html' with field=form.bio %}
+							{% include 'partials/bootstrap_form_field.html' with field=form.personal_statement %}
+							<p class="small text-muted text-start">{{form.personal_statement.help_text}}</p>
+							{% include 'partials/bootstrap_form_field.html' with field=form.age%}
+							{% include 'partials/bootstrap_form_field.html' with field=form.location%}
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-md-4">
+							{% include 'partials/bootstrap_form_field.html' with field=form.new_password %}
+						</div>
+						<div class="col-md-4">
+							{% include 'partials/bootstrap_form_field.html' with field=form.password_confirmation %}
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-md-8 d-grid mt-2 mb-4">
+							<input type="submit" value="Sign up" class="btn btn-outline-success sign-up-submit">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

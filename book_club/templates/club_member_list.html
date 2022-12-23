@@ -1,0 +1,83 @@
+{% extends 'base_content.html' %}
+{% block title %}Members{% endblock %}
+{% load bootstrap_pagination %}
+{% block content %}
+
+{% if user.is_authenticated and exists_in_club %}
+<div class="container mt-4">
+<div class="row">
+  <div class="col-12 text-center">
+    <h2> Members of {{current_club}}:</h2>
+
+      {% include 'partials/filter_form.html' with form=filter.form current_view='club_member_list' %}
+
+      {% if is_paginated %}
+        {% bootstrap_paginate page_obj range=8 previous_label="Previous" next_label="Next" show_first_last="true" %}
+      {% endif%}
+
+  </div>
+</div>
+
+<section class="container-output">
+
+    <div class="container">
+
+        <ul class="vertical-list">
+
+            {% for club_member in members %}
+            {% if club_member.level != 'APP' %}
+
+              <li>
+                <div class="item d-flex align-items-center flex-wrap flex-sm-nowrap">
+
+                  <a href="member/{{club_member.club.id}}/{{club_member.user.id}}" class="item-col d-flex align-items-center w-100">
+
+                        <div class="item-avatar">
+                            <div class="image-wrapper">
+                                <img src="{{club_member.user.gravatar}}" alt="profile avatar">
+                            </div>
+                        </div>
+
+                        <div class="item-details flex-wrap align-items-cente">
+                            <div class="column-spacer right">
+                                <div class="name py-2 px-3">{{club_member.user.first_name}} {{club_member.user.last_name}}</div>
+                            </div>
+                        </div>
+                  </a>
+
+                  {% if request_is_owner %}
+
+                    {% if club_member.level != 'OWN' %}
+
+                        <div class="item-col d-flex align-items-center justify-content-end justify-content-sm-center p-3 p-sm-0 ps-sm-5 flex-grow-1">
+
+                       {% if club_member.level == 'OFF' %}
+                       <a href="{% url 'club_member_demote' club_member.club.id club_member.user.id %}" class="btn btn-danger"> Demote to Member</a>
+
+                       {% elif club_member.level == 'MEM'%}
+                       <a href="{{ club_member.club.id }}/{{ club_member.user.id }}/promote" class="btn btn-info"> Promote to Officer </a>
+
+                       {% endif %}
+                       </div>
+
+                    {% endif %}
+                  {% endif %}
+
+                </div>
+              </li>
+            {% else %}
+
+            {% endif %}
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+</section>
+{% else %}
+<p>Sorry, you must be logged in and a member of this book club to view the member list.</p>
+{% endif %}
+
+
+{% endblock %}

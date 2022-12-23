@@ -1,0 +1,32 @@
+{% extends 'base_content.html' %}
+{% block title %}Application Form{% endblock %}
+{% block content %}
+	<div class="container mt-4">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h1>&nbsp;Apply to a Club</h1>
+				<h4 class="text-muted">Application Form</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<form action="{% url 'join' club_id %}" method="post">
+					{% csrf_token %}
+					<div class="row justify-content-center">
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-md-8">
+							{% include 'partials/bootstrap_form_field.html' with field=form.applicationStatement %}
+							<p class="small text-muted text-start">{{form.applicationStatement.help_text}}</p>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-md-8 d-grid mt-2 mb-4">
+							<input type="submit" value="Join" class="btn btn-outline-success sign-up-submit">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

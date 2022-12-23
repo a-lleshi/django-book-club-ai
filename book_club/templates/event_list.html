@@ -1,0 +1,57 @@
+{% extends 'base_content.html' %}
+{% block title %}Events{% endblock %}
+{% block content %}
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>&nbsp;Events for {{ current_club }}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {% if event_list|length > 0%}
+                {% for event in event_list %}
+
+                <div class="card">
+                    <div class="card-header">
+                        <strong>{{ event.title }}</strong>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Date: {{ event.date }}</h5>
+                        <p class="card-text">
+                            <ul>
+                                <li>Date: {{ event.date }}</li>
+                                <li>Description: {{ event.description }}</li>
+                                <li>Location: {{ event.location }}</li>
+                                </ul>
+                        </p>
+                    </div>
+                </div>
+                <button class="showButton" id="{{ event.id }}Btn" onclick="btnCommentsClick('{{ event.id }}')">>Show Comments</button>
+
+                <table style="display: none; width: 100%" id="{{event.id }}CommentTable">
+                    {% for comment in event.getComments %}
+                        {% include 'partials/comment_as_table_row.html' with comment=comment %}
+                    {% endfor %}
+                    <tr style="width: 100%">
+                        <td colspan="2">
+                            <div style="margin-left: 5%;">
+                                <form action="{% url 'new_event_comment' event.id %}" method="post">
+                                {% csrf_token %}
+                                {% include 'partials/bootstrap_form.html' with form=form %}
+                                <button type="submit" class="btn btn-primary">Post</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                {% endfor %}
+                {% else %}
+                  <h3>Looks like there are no events available!</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

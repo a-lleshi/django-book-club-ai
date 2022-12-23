@@ -1,0 +1,13 @@
+[
+  {
+	"model" : "book_club.event",
+	"pk": 1,
+	"fields": {
+    "title": "Event name",
+    "description": "New event description",
+    "date":"2022-09-10",
+    "location":"Home",
+    "clubs":1
+	}
+  }
+]

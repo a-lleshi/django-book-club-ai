@@ -1,0 +1,23 @@
+{% extends 'base_content.html' %}
+{% block title %}Log in{% endblock %}
+{% block content %}
+	<div class="container mt-4">
+		<div class="row text-center">
+			<h1><i class="fas fa-book nav-icon"></i>&nbsp;SigmaBooks</h1>
+			<h4 class="text-muted">Log in</h4>
+			<form action="{% url 'log_in' %}" method="post">
+				{% csrf_token %}
+					<div class="col-md-6 offset-md-3 text-center">
+						{% include 'partials/bootstrap_form_field.html' with field=form.email %}
+						{% include 'partials/bootstrap_form_field.html' with field=form.password %}
+						<input type="hidden" name="next" value="{{ next }}">
+						<div class="d-grid mb-2">
+							<input type="submit" value="Log in" class="btn btn-outline-success sign-up-submit">
+						</div>
+					</div>
+				</form>
+				<p class="text-muted">Don't have an account? <a href="{% url 'sign_up' %}">Sign up</a></p>
+			</div>
+		</div>
+
+{% endblock %}

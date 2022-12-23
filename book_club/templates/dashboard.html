@@ -1,0 +1,192 @@
+{% extends 'base_content.html' %}
+{% load humanize %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-6">
+				<h1><em><i class="fas fa-people-roof float-start me-2"></i>{{ current_club.name }}</em></h1>
+			</div>
+			<div class="col-6">
+				{% if current_book != None %}
+						<h3> <strong> Current Reading in {{ current_club }}: </strong> </h3>
+				{% endif %}
+			</div>
+		</div>
+		{% if current_club %}
+			{% if club_user.is_applicant %}
+					<h4>Your application has not yet been approved by the club's administration</h4>
+			{% else %}
+					<div class="row">
+						<div class="col-md-6">
+							<h5></h5>
+							<div class="card mb-4">
+								<div class="card-header">
+									Club Posts
+								</div>
+								<ul class="list-group list-group-flush">
+									{% for post in posts %}
+										<li class="list-group-item p-2">
+											<div class="row gy-2 align-items-center">
+												<div class="col">
+
+													<a class="link-secondary" href="{% url 'member_info' current_club.id post.author.id %}">
+														<strong>{{ post.author.full_name }}</strong>
+													</a>
+													<h6>{{ post.author.is_owner}}</h6>
+												</div>
+												<div class="col-auto">
+													<span class="text-muted"><em>{{ post.created_at|naturaltime }}</em></span>
+												</div>
+											</div>
+											{{ post.text }}
+										</li>
+									{% empty %}
+										<li class="list-group-item p-2">
+											<em>No posts.</em>
+										</li>
+									{% endfor %}
+
+										<div class="card-body text-end">
+											<a href="{% url 'forum' current_club.id %}" class="card-link">
+												Make or view more posts <i class="bi bi-arrow-right"></i>
+											</a>
+										</div>
+
+								</ul>
+							</div>
+						</div>
+								<div class="col-md-6 col-xl-5 ">
+									<div class="container">
+							        <div class="row">
+							            <div class="col-12">
+
+							                {% if current_book == None and user_choosing_book == False %}
+							                    <strong>No current book to read for club!</strong>
+																	<h4>  {{ name_of_book_chooser.full_name }} has not made their choice yet!</h4>
+															{% elif current_book == None and user_choosing_book == True %}
+																	<strong>No current book to read for club!</strong>
+																	<h4>You have been chosen to select the next book using the AI Recommender!</h4>
+																	  <a class="btn btn-primary" href="{% url 'recommendation' %}">Recommendation</a>
+							                {% else %}
+
+							                        <div class="card">
+							                            <div class="card-header">
+							                                <strong>{{ current_book }}</strong>
+							                            </div>
+							                            <div class="card-body">
+							                                <div class="col-md-2">
+							                                    <img src="{{ current_book.get_image }}" class="img-fluid rounded-start" alt="{{ current_book.get_image }}" style="max-width:100%; height: auto;">
+							                                </div>
+							                                <br/>
+
+															<div class="rate-this-book">
+																<div class="title mb-2">Rate this book: </div>
+																{% for usersBook in userRatedBooks %}
+																	{% if usersBook.ISBN == current_book.ISBN %}
+																  		<p>You have rated this book as: <b>{{usersBook.bookRating}}</b></p>
+																	{% endif %}
+																{%endfor%}
+																<div class="stars-wrapper d-flex align-items-center {% for usersBook in userRatedBooks %}{% if usersBook.ISBN == current_book.ISBN %}hidden {% endif %}{% endfor %}">
+
+																  {% for i in '0123456789'|make_list %}
+																  <a href="/dashboard/{{ current_book.get_id }}/{{ forloop.counter }}" class="star-item unselected">
+																	<div class="star">
+																	  <span class="fa-regular fa-star"></span>
+																	  <span class="fa-solid fa-star"></span>
+																	</div>
+																  </a>
+																  {% endfor %}
+
+																</div>
+															  </div>
+															<br/>
+															{% if club_user.is_owner or club_user.is_officer %}
+																<p class="card-text">
+																	<a type="button" class="btn btn-primary" href="{% url 'clear_book_add_book' current_book.get_id  %}">Finished Reading</a>
+																</p>
+															{% endif %}
+							                            </div>
+							                        </div>
+							                        <br/>
+							                {% endif %}
+							            </div>
+							        </div>
+								</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 col-lg-12 mt-5 club-books-listing">
+							{% if club_user.is_member or  club_user.is_officer or club_user.is_owner %}
+							<div class="books-listing-wrapper">
+								{% if club_books|length > 0%}
+								<h2 class="title mb-5">Books manually selected by the officers of this club to rate: </h2>
+								{% endif %}
+								<div class="books-listing-output">
+
+									{% for clubBookEntry in club_books %}
+									<div class="book-item">
+										<div class="card">
+
+											<div class="card-body">
+
+												<div class="image-wrap mb-3">
+													<img src="{{ clubBookEntry.ISBN.ImageURLL }}" class="img-fluid rounded-start" alt="{{ clubBookEntry.ISBN.BookTitle }}" style="width:100%; max-height: auto;">
+												</div>
+
+												<div class="cb-footer">
+
+													<div class="book-title-wrap">
+														<div class="book-title mb-3">{{ clubBookEntry.ISBN.BookTitle }}</div>
+														<div class="book-author small"><span>{{ clubBookEntry.ISBN.BookAuthor }}</span></div>
+													</div>
+
+													<hr>
+
+													<div class="rate-this-book">
+
+														<div class="title mb-2">Rate this book: </div>
+
+														{% for usersBook in userRatedBooks %}
+
+															{% if usersBook.ISBN == clubBookEntry.ISBN.ISBN %}
+																<p>You have rated this book as: <b>{{usersBook.bookRating}}</b></p>
+															{% endif %}
+
+														{% endfor %}
+
+														<div class="stars-wrapper d-flex align-items-center {% for usersBook in userRatedBooks %}{% if usersBook.ISBN == clubBookEntry.ISBN.ISBN %}hidden {% endif %}{% endfor %}">
+
+															{% for i in '0123456789'|make_list %}
+																<a href="/dashboard/{{ clubBookEntry.ISBN.id }}/{{ forloop.counter }}" class="star-item unselected">
+																	<div class="star">
+																		<span class="fa-regular fa-star"></span>
+																		<span class="fa-solid fa-star"></span>
+																	</div>
+																</a>
+															{% endfor %}
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									{% endfor %}
+
+								</div>
+							</div>
+							{% else %}
+							<p>Sorry, you need to be a member of this club to view its recommended books.</p>
+							{% endif %}
+						</div>
+					</div>
+		<div>
+			{% endif %}
+
+		{% else %}
+			<h4>Looks like you are not part of any club! </h4>
+			<a href="{% url 'club_list' %}" class="btn btn-lg btn-primary">Apply to one of the available clubs!</a>
+			<h4>Or create your own by clicking Clubs in the navigation bar</h4>
+		{% endif %}
+	</div>
+{% endblock %}

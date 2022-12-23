@@ -1,0 +1,226 @@
+/* Custom Styling for Book Club */
+
+body {
+    font-family: Montserrat, sans-serif;
+    height: 100vh;
+}
+
+.nav-icon {
+    margin-right: 0.2em;
+}
+
+/* Home page */
+
+#cover-image {
+    background: url('imgs/home_background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    height: 100%;
+}
+
+p.cover-text {
+    font-size: 1.7rem;
+
+}
+
+.inline-form {
+    display: grid;
+    margin: 1em 0;
+    align-items: end;
+    grid-template-columns: repeat(6, auto);
+    grid-gap: 1em;
+}
+
+/* Form text areas */
+textarea {
+    min-height: 100px !important;
+}
+
+.user-profile-image {
+    float: left;
+    width: 72px;
+    margin-right: 1em;
+}
+
+/* List views */
+
+table {
+    vertical-align: middle !important;
+}
+
+@media screen and (min-width: 950px) {
+  .container-output ul li .item:hover .item-avatar {
+    width: 70px;
+  }
+}
+
+.container-output ul {
+  border-top: 5px solid #444444;
+  background: #fbfbfb;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.container-output ul li {
+  border-bottom: 1px solid #444444;
+}
+
+.container-output ul li .item .item-inner > a {
+  text-decoration: none;
+  color: #444444;
+}
+
+.container-output ul li .item {
+  padding: 1rem 0.625rem;
+  text-decoration: none;
+  color: #444444;
+}
+.container-output ul li .item .item-avatar {
+  transition: width 0.3s ease, height 0.3s ease;
+  width: 50px;
+  height: 100%;
+}
+.container-output ul li .item .item-avatar .image-wrapper {
+  padding-top: 100%;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.container-output ul li .item .item-avatar .image-wrapper img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.container-output ul li .item .item-content {
+  word-break: break-word;
+}
+.container-output ul li .item .action-buttons-wrap a, .container-output ul li .item .action-buttons-wrap div {
+  margin-right: 0.75rem;
+}
+.container-output ul li .item .action-buttons-wrap a:last-child, .container-output ul li .item .action-buttons-wrap div:last-child {
+  margin-right: 0;
+}
+.container-output ul li .item .item-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.container-output ul li .item .item-details .name,
+.container-output ul li .item .item-details .ico {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.panel-wrapper {
+  display: flex;
+}
+.panel-wrapper .profile-avatar .image-wrapper{
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  width: 95px;
+  height: 95px;
+}
+.panel-wrapper .profile-avatar .image-wrapper img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.name-wrapper {
+  padding-left: 13px;
+}
+ul.club-names {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+ul.club-names li {
+  margin-right: 10px;
+  background: #Cccccc;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  width: fit-content;
+  margin: 0.75rem;
+}
+.btn.btn-dark-grey{
+  color: #2D3142;
+  background-color: #cccccc;
+  border-color: #cccccc;
+}
+.club-books-listing .books-listing-output {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.club-books-listing .books-listing-output .book-item {
+  width: 25%;
+  padding: 0 1rem 1rem;
+}
+
+.stars-wrapper .star-item.unselected:hover .star .fa-star.fa-regular {
+  display: none;
+}
+
+.stars-wrapper .star-item.unselected:hover .star .fa-star.fa-solid {
+  display: block;
+  opacity: 1;
+}
+
+.stars-wrapper .star-item.unselected:hover {
+  /* color: #e2d152; */
+  color: gold;
+}
+
+.stars-wrapper .star-item.half .star .fa-star-half.fa-solid {
+  display: block;
+}
+
+.stars-wrapper .star-item.unselected .star .fa-star.fa-regular {
+  display: block;
+}
+
+.stars-wrapper .star-item.selected .star .fa-star.fa-solid {
+  display: block;
+}
+
+.stars-wrapper .star-item .star .fa-star,
+.stars-wrapper .star-item .star .fa-star-half {
+  display: none;
+}
+
+.stars-wrapper .star-item.unselected {
+  color: #898989;
+  opacity: 0.6;
+  display: block;
+}
+
+.stars-wrapper .star-item {
+  transition: opacity 0.3s;
+  /* color: #e2d152; */
+  color: gold;
+  display: block;
+  text-decoration: none;
+}
+
+.stars-wrapper.hide-unselected .star-item.unselected {
+  display: none !important;
+}
+
+.hidden {
+  display: none !important;
+}

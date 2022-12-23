@@ -1,0 +1,105 @@
+{% extends 'base_content.html' %}
+{% block title %}Club Reading{% endblock %}
+{% block content %}
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>&nbsp;Club Reading</h1>
+            </div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+            {% endfor %}
+        {% endif %}
+        <div class="row">
+            <div class="col-12">
+                {% if current_book == None %}
+                    {% if user_choosing_book %}
+                      <strong>No current book to read for club!</strong> Please go to the <a href="{% url 'recommendation' %}">Recommended Books</a> page to select a book to read.
+                    {% else %}
+                      <strong>No current book to read for club!</strong>
+                      {{ name_of_book_chooser.full_name }} is choosing the next book for the club!
+                    {% endif %}
+
+                    {% else %}
+                        <h3> <strong> Current Reading in {{ current_club }}: </strong> </h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>{{ current_book }}</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-md-2">
+                                    <img src="{{ current_book.get_image }}" class="img-fluid rounded-start" alt="{{ current_book.get_image }}" style="max-width:100%; height: auto;">
+                                </div>
+                                <br/>
+                                <div class="rate-this-book">
+                                    <div class="title mb-2">Rate this book: </div>
+                                    {% for usersBook in userRatedBooks %}
+                                        {% if usersBook.ISBN == current_book.ISBN %}
+                                              <p>You have rated this book as: <b>{{usersBook.bookRating}}</b></p>
+                                        {% endif %}
+                                    {%endfor%}
+                                    <div class="stars-wrapper d-flex align-items-center {% for usersBook in userRatedBooks %}{% if usersBook.ISBN == current_book.ISBN %}hidden {% endif %}{% endfor %}">
+
+                                      {% for i in '0123456789'|make_list %}
+                                      <a href="/club_readings/{{ current_book.get_id }}/{{ forloop.counter }}" class="star-item unselected">
+                                        <div class="star">
+                                          <span class="fa-regular fa-star"></span>
+                                          <span class="fa-solid fa-star"></span>
+                                        </div>
+                                      </a>
+                                      {% endfor %}
+
+                                    </div>
+                                  </div>
+                                <br/>
+                                {% if club_user.is_owner or club_user.is_officer %}
+                                    <p class="card-text">
+                                        <a type="button" class="btn btn-primary" href="{% url 'clear_book_add_book' current_book.get_id  %}">Finished Reading</a>
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <br/>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h3> <strong> Previous Read in {{ current_club }}: </strong> </h3>
+                <div class="d-flex flex-row flex-nowrap overflow-auto">
+                    {% for book in prev_books_list %}
+                        <div class="card card-block mx-2" style="min-width: 300px;">
+
+                            <div class="card mb-3" style="max-width: auto;">
+                                <div class="row g-0 text-center my-auto">
+                                <div class="card-header">
+                                    <h2 class="card-title">{{ book.BookTitle }}</h2>
+                                </div>
+                                <div class="col-md-2">
+                                    <img src="{{ book.ImageURLL }}" class="img-fluid rounded-start" alt="{{ book.BookTitle }}" style="width:100%; max-height: auto;">
+                                </div>
+                                <div class="col-md-8 text-center my-auto">
+                                    <div class="card-body ">
+                                    <p class="card-text">
+                                        <h4>Author: {{ book.BookAuthor }}</h4>
+                                        <h5>Year Of Publication: {{ book.YearOfPublication }}</h5>
+                                    </p>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="card-footer text-center my-auto">
+                                <small class="text-muted">ISBN: {{ book.ISBN }}</small>
+                            </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+               </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base_content.html' %}
+{% block title %}Add Event{% endblock %}
+{% block content %}
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>&nbsp;Events</h1>
+                <h4 class="text-muted">Add Event for {{ current_club }}! </h4>
+                <span class="text-muted">Want to view events for {{ current_club }}? <a href="{% url 'event_list' %}">View event</a></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {% if submitted %}
+						<strong>Success!</strong> Your event has been added.
+                    {% else %}
+                        <form action="{% url 'add_event' %}" method="post">
+                            {% csrf_token %}
+                            <div class="row justify-content-center">
+                                <div class="col-md-8">
+                                    {% include 'partials/bootstrap_form_field.html' with field=form.title %}
+                                    {% include 'partials/bootstrap_form_field.html' with field=form.description %}
+                                    <p class="small text-muted text-start">{{form.description.help_text}}</p>
+                                    {% include 'partials/bootstrap_form_field.html' with field=form.date %}
+                                    {% include 'partials/bootstrap_form_field.html' with field=form.location%}
+                                    {% include 'partials/bootstrap_form_field.html' with field=form.clubs%}
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-8 d-grid mt-2 mb-4">
+                                            <input type="submit" value="Add Event" class="btn btn-outline-success add-event-submit">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+{% endblock %}

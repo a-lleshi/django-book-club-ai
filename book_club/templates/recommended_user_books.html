@@ -1,0 +1,52 @@
+{% extends 'base_content.html' %}
+{% block title %}Recommended Books{% endblock %}
+{% block content %}
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1><i class="fas fa-book nav-icon"></i>&nbsp;Recommendations</h1>
+                <h4 class="text-muted">{{ current_club.name }}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {% if recommended_list.size == 0%}
+                    <strong>No Recommended Books!</strong> Looks like out system couldn't produce any recommended books please contact us!
+                    {% else %}
+                        {% for book, rating in recommended_list %}
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>{{ book }}</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-md-2">
+                                    <img src="{{ url }}" class="img-fluid rounded-start" alt="{{ url }}" style="max-width:100%; height: auto">
+                                </div>
+                                <div class="col-md-2">
+                                    <img src="{{ book.get_image }}" class="img-fluid rounded-start" alt="{{ current_book.get_image }}" style="max-width:100%; height: auto;">
+                                </div>
+                                <p class="card-text">
+                                    <ul>
+                                        <p> Author: <strong>{{ book.BookAuthor }}</strong>  </p>
+                                    </ul>
+                                </p>
+                                <p class="card-text">
+                                    <ul>
+                                        <p> Match: <strong>{{ rating }} % </strong>  </p>
+                                    </ul>
+                                </p>
+                                <br/>
+                                <p class="card-text">
+                                    <a type="submit" class="btn btn-primary" href="{% url 'set_reading' book.id %}">Select to Read</a>
+                                </p>
+                            </div>
+                        </div>
+                        <br/>
+
+                        {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

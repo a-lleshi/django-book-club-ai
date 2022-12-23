@@ -1,0 +1,56 @@
+{% extends 'base_content.html' %}
+{% block title %}Events{% endblock %}
+{% load bootstrap_pagination %}
+{% block content %}
+
+<div class="container mt-4">
+<div class="row">
+  <div class="col-12 text-center">
+    <h2> Applicants of {{current_club}}:</h2>
+      {% include 'partials/filter_form.html' with form=filter.form current_view='applicant_list' %}
+
+      {% if is_paginated %}
+        {% bootstrap_paginate page_obj range=8 previous_label="Previous" next_label="Next" show_first_last="true" %}
+      {% endif%}
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+            {% if applications.count > 0%}
+            {% for application in applications %}
+
+            <div class="card mb-3">
+              <div class="row g-0">
+
+                  <div class="col-md-10">
+                    <div class="card-body">
+                      <h8 class="card-title">{{ application.user.full_name }}</h8>
+                      <h6 class="card-text"><b>Statement: </b> {{ application.applicationStatement }}</h6>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <div class="card-body" style="display: flex;justify-content: space-between; align-items: center;">
+                      <form action="{% url 'accept_applicant' current_club.id application.user.id%}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Accept" class="btn btn-outline-success">
+                      </form>
+                      <form action="{% url 'reject_applicant' current_club.id application.user.id%}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Reject" class="btn btn-outline-danger">
+                      </form>
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+            <br/>
+
+            {% endfor %}
+            {% else %}
+              <h3>There are currently no applicants</h3>
+            {% endif %}
+  </div>
+</div>
+</div>
+{% endblock %}

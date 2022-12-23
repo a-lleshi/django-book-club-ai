@@ -1,0 +1,72 @@
+{% extends 'base_content.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+
+<div class="container py-5">
+
+  <div style="text-align: right" class="input-group mb-3">
+    <a href="{% url 'club_member_list' %}" >
+          <i class="bi bi-arrow-left"></i> Back to member list
+    </a>
+  </div>
+
+    <div class="row">
+
+        <div class="col col-sm-12 col-md-7 col-lg-7">
+          {% for member in members %}
+            <div style="border: thin solid #D3D3D3; padding: 10px" class="panel-whole-wrapper">
+              <div class="panel-wrapper">
+                  <div class="profile-avatar">
+                        <div class="image-wrapper">
+                            <img src="{{ member.gravatar }}" alt="profile avatar">
+                        </div>
+                  </div>
+                  <div class="name-wrapper">
+                    <h1 class="title">{{member.first_name}} {{member.last_name}}</h1>
+
+                    <div class="badge-wrap d-flex my-3">
+                        <div class="badge-item mx-1"><i class="fa-solid fa-book"></i>
+                          {%if qMembership.level == "OWN"%}
+                            Owner
+                          {%endif%}
+                          {%if qMembership.level == "OFF"%}
+                            Officer
+                          {%endif%}
+                          {%if qMembership.level == "MEM"%}
+                            Member
+                          {%endif%}
+                        </div>
+                        <div class="badge-item mx-1"><i class="fa-solid fa-address-card"></i> {{member.age}}</div>
+                    </div>
+                  </div>
+
+              </div>
+              <div style="padding-left: 5px" class="description">
+                  <p>{{member.bio}}</p>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col col-sm-12 col-md-5 col-lg-5">
+          <div class="card">
+              <div class="card-header">
+                This member is a part of the following clubs:
+              </div>
+              <div class="card-body">
+                <ul class="club-names">
+                {% for membership in allMemberships %}
+                  <li>
+                    <a href="{% url 'show_club' membership.club.id %}" class="title" style ="text-decoration: none;">
+                      <p class="m-0"> <strong>{{ membership.club }}</strong> </p>
+                    </a>
+                  </li>
+                {%endfor%}
+                </ul>
+              </div>
+          </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

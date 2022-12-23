@@ -1,0 +1,38 @@
+{% extends 'base_content.html' %}
+{% block title %}Create a Club{% endblock %}
+{% block content %}
+
+	<div class="container mt-4">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h1><i class="fas fa-book nav-icon"></i>&nbsp;Book Clubs</h1>
+				<h4 class="text-muted">Create Club</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				{% if submitted %}
+						<strong>Success!</strong> Your club has been created. You have been assigned as its owner.
+					{% else %}
+					<form action="{% url 'club.create' %}" method="post">
+						{% csrf_token %}
+						<div class="row justify-content-center">
+							<div class="col-md-8">
+								{% include 'partials/bootstrap_form_field.html' with field=form.name %}
+								{% include 'partials/bootstrap_form_field.html' with field=form.description %}
+								<p class="small text-muted text-start">{{form.description.help_text}}</p>
+								{% include 'partials/bootstrap_form_field.html' with field=form.theme %}
+								{% include 'partials/bootstrap_form_field.html' with field=form.location%}					
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col-md-8 d-grid mt-2 mb-4">
+								<input type="submit" value="Create Club" class="btn btn-outline-success add-event-submit">
+							</div>
+						</div>
+					</form>
+				{% endif %}
+				</div>
+			</div>
+		</div>
+{% endblock %}
