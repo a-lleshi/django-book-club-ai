@@ -17,7 +17,7 @@ This project is deployed on heruko servers and using a postgres database.
 
 **WARNING**: Due to Heurok free deployment the RAM limitations could sometimes not handle the recommendation system; therefore would take some page refresing until it works.
 
-**UPDATE**: Heruko no longer offers free tier :/ .
+**UPDATE**: Heruko no longer offers free tier :/
 
 ## Project structure
 The project is called `system`.  It currently consists of a single app `book_club`. With the recommender system within a folder named `util` within the `book_club` app.
