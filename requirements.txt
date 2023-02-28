@@ -34,3 +34,4 @@ scipy==1.8.0
 joblib==1.1.0
 gunicorn
 django-heroku
+numpy==1.19
